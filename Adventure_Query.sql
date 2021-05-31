@@ -1,3 +1,7 @@
+/*Use AdventureWorks2008R2 database*/
+USE [AdventureWorks2008R2]
+GO
+
 /*All Employee With Job Title Is 'Research and Development Engineer'*/
 SELECT BusinessEntityID, LoginID, JobTitle
 FROM HumanResources.Employee
@@ -24,3 +28,16 @@ FROM Sales.SalesOrderHeader
 WHERE OrderDate >= '2005-07-01' AND  OrderDate <='2005-07-31'
 AND TotalDue > 1000
 
+/*Explore Data in Table*/
+SELECT TOP 10 *
+FROM Sales.SalesOrderDetail
+WHERE SalesOrderID = 43659 
+AND ProductID = 776
+
+SELECT *
+FROM Production.Product
+WHERE ProductID = 776
+
+SELECT *
+FROM Production.ProductCostHistory
+WHERE ProductID = 776
