@@ -11,9 +11,16 @@ WHERE ModifiedDate >= '2001-02-01'
 AND ModifiedDate < '2001-03-01'
 GO
 
-/*Retrieve orders during September 2001 and total due exceed $1000*/
+/*Retrieve orders during September 2005 and total due exceed $1000*/
 /*Option 1*/
 SELECT SalesOrderID, OrderDate, TotalDue
 FROM Sales.SalesOrderHeader
-WHERE OrderDate BETWEEN '2001-03-01' AND '2001-03-31'
+WHERE OrderDate BETWEEN '2005-07-01' AND '2005-07-31'
+AND TotalDue > 1000
+
+/*Option 2*/
+SELECT SalesOrderID, OrderDate, TotalDue
+FROM Sales.SalesOrderHeader
+WHERE OrderDate >= '2005-07-01' AND  OrderDate <='2005-07-31'
+AND TotalDue > 1000
 
