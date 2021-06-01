@@ -2,42 +2,22 @@
 USE [AdventureWorks2008R2]
 GO
 
-/*All Employee With Job Title Is 'Research and Development Engineer'*/
-SELECT BusinessEntityID, LoginID, JobTitle
-FROM HumanResources.Employee
-WHERE JobTitle = 'Research and Development Engineer'
+/*Data Exploration*/
+/*Determine top 10 Ordered Products by Revenue*/
+SELECT TOP 10 SOD.ProductID, 
+				PP.Name, 
+				SUM(SOD.OrderQty) AS Order_Total,
+				CAST(ROUND(SUM(SOD.LineTotal),2) AS FLOAT) as Total
+FROM Sales.SalesOrderDetail AS SOD
+LEFT JOIN Production.Product as PP 
+	ON SOD.ProductID = PP.ProductID
+GROUP BY SOD.ProductID,	
+			PP.Name
+ORDER BY Total DESC
 GO
+/*From the table, Mountain-200 Black, 38 is the top item. Variations of the same items
+appear to be on the top 10 list followed by Road-250*/
 
-/*All people whose rows were modified during Februray 2001*/
-SELECT BusinessEntityID, FirstName, LastName, ModifiedDate
-FROM Person.Person
-WHERE ModifiedDate >= '2001-02-01' 
-AND ModifiedDate < '2001-03-01'
-GO
-
-/*Retrieve orders during September 2005 and total due exceed $1000*/
-/*Option 1*/
-SELECT SalesOrderID, OrderDate, TotalDue
-FROM Sales.SalesOrderHeader
-WHERE OrderDate BETWEEN '2005-07-01' AND '2005-07-31'
-AND TotalDue > 1000
-
-/*Option 2*/
-SELECT SalesOrderID, OrderDate, TotalDue
-FROM Sales.SalesOrderHeader
-WHERE OrderDate >= '2005-07-01' AND  OrderDate <='2005-07-31'
-AND TotalDue > 1000
-
-/*Explore Data in Table*/
-SELECT TOP 10 *
-FROM Sales.SalesOrderDetail
-WHERE SalesOrderID = 43659 
-AND ProductID = 776
-
+/*Determine top 10 Categories*/
 SELECT *
 FROM Production.Product
-WHERE ProductID = 776
-
-SELECT *
-FROM Production.ProductCostHistory
-WHERE ProductID = 776
